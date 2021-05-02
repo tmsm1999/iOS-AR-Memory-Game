@@ -1,0 +1,17 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "resources" : [
+    {
+      "filename" : "Game of Thrones.arreferenceimage"
+    },
+    {
+      "filename" : "Harry Potter.arreferenceimage"
+    },
+    {
+      "filename" : "The Mandalorian.arreferenceimage"
+    }
+  ]
+}
