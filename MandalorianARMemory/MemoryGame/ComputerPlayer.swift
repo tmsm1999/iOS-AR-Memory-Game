@@ -36,7 +36,6 @@ class ComputerPlayer: NSObject {
                 chosenIndex = (cardsToChoosenFrom[0], cardsToChoosenFrom[1])
             }
             else {
-                print(cardsToChoosenFrom)
                 
                 var index = (Int.random(in: 0..<cardsToChoosenFrom.count))
                 let firstCardIndex = cardsToChoosenFrom[index]
@@ -46,7 +45,6 @@ class ComputerPlayer: NSObject {
                 let secondCardIndex = cardsToChoosenFrom[index]
                 
                 chosenIndex = (firstCardIndex, secondCardIndex)
-                print(chosenIndex)
             }
             
             break
@@ -83,12 +81,9 @@ class ComputerPlayer: NSObject {
                 let secondCardIndex = cardsToChoosenFrom[index]
                 
                 chosenIndex = (firstCardIndex, secondCardIndex)
-                print(chosenIndex)
             }
             
         case .hard:
-            
-            print("Cards to choose from: \(cardsToChoosenFrom.count)")
             
             if cardsToChoosenFrom.count == 2 {
                 chosenIndex = (cardsToChoosenFrom[0], cardsToChoosenFrom[1])
@@ -107,15 +102,10 @@ class ComputerPlayer: NSObject {
                             cardsSeenIndex.removeValue(forKey: i)
                             cardsSeenIndex.removeValue(forKey: j)
                             
-                            print("Found match from seen cards.")
-                            print(cardsSeenIndex)
-                            
                             return chosenIndex
                         }
                     }
                 }
-                
-                print("Primeira jogada!")
                 
                 var firstCardIndex = -1
                 var secondCardIndex = -1
@@ -139,7 +129,6 @@ class ComputerPlayer: NSObject {
                         }
 
                         firstCardIndex = cardsToChoosenFrom[index]
-                        print(firstCardIndex)
 
                         for card in cardsSeenIndex.keys {
 
@@ -148,7 +137,6 @@ class ComputerPlayer: NSObject {
                                 secondCardIndex = cardsSeenIndex[card]!
                                 cardsSeenIndex.removeValue(forKey: card)
                                 
-                                print("Smart move!")
                                 return (firstCardIndex, secondCardIndex)
                             }
                         }
@@ -160,19 +148,14 @@ class ComputerPlayer: NSObject {
                     let index = (Int.random(in: 0..<cardsToChoosenFrom.count))
                     firstCardIndex = cardsToChoosenFrom[index]
                     cardsToChoosenFrom.remove(at: index)
-                    
-                    print(firstCardIndex)
                 }
                 
                 if secondCardIndex == -1 {
                     
-                    print("Segunda carta à sorte.")
-                    
                     let index = (Int.random(in: 0..<cardsToChoosenFrom.count))
                     secondCardIndex = cardsToChoosenFrom[index]
                     cardsToChoosenFrom.remove(at: index)
-                    
-                    print(secondCardIndex)
+
                 }
                 
                 chosenIndex = (firstCardIndex, secondCardIndex)

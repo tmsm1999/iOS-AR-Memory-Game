@@ -17,12 +17,15 @@ class MemoryGame: NSObject {
     
     private var initialNumberOfCards: Int
     private var gameBoard: SCNNode = SCNNode()
+    
     private var gameCards: [Card] = [Card]()
     private var gameDifficulty: GameDifficulty
     private var cardsTurnedUp = [Card]()
     private var cardSet: String!
-    @objc dynamic var humanPlayerPoints: Int
+    
     private var previousHumanPlayerNumberOfPoints: Int
+    @objc dynamic var humanPlayerPoints: Int
+    
     @objc dynamic var isComputerTurn: Bool
     @objc dynamic var gameHasEnded: Bool
     
@@ -80,9 +83,9 @@ class MemoryGame: NSObject {
         
         gameCards = gameCards.shuffled()
         
-        for card in gameCards {
-            print("\(card.characterName), \(card.characterSummary), \(card.cardIsUp), \(card.cardFoundMatch)")
-        }
+//        for card in gameCards {
+//            print("\(card.characterName), \(card.characterSummary), \(card.cardIsUp), \(card.cardFoundMatch)")
+//        }
         
         computerPlayer.gameCards = gameCards
         
@@ -158,8 +161,6 @@ class MemoryGame: NSObject {
         var currentPositionX = -boardWidth / 2 + 0.03
         var currentPositionY = boardheight / 2 - cardHeight / 2 - 0.03
         
-        print(gameCards.count)
-        
         for i in 0 ... (gameCards.count - 1) / 2 {
 
             gameCards[i].characterNode.eulerAngles = SCNVector3(-90.degreesToRadians, 0, 0)
@@ -185,8 +186,10 @@ class MemoryGame: NSObject {
     func checkMatch() {
         
         if cardsTurnedUp[0].characterName.split(separator: "_")[0] == cardsTurnedUp[1].characterName.split(separator: "_")[0] {
-            cardsTurnedUp[0].cardFoundMatch = true
-            cardsTurnedUp[1].cardFoundMatch = true
+            
+            cardsTurnedUp[0].matchCard()
+            cardsTurnedUp[1].matchCard()
+            
             print("We have a match!")
             
             cardsTurnedUp[0].characterNode.putCardDownAfterMatch()
@@ -208,6 +211,7 @@ class MemoryGame: NSObject {
             showPlaneWidthCharacterInfo(characterName: characterName, characterBio: characterBio)
             
             if checkGameHasEnded() {
+                
                 gameHasEnded = true
                 return
             }
@@ -215,13 +219,17 @@ class MemoryGame: NSObject {
             nextPlay(changesPlayer: false)
         }
         else {
+            
             if isComputerTurn {
-                if cardsTurnedUp[0].cardWasTurnedBefore || cardsTurnedUp[1].cardWasTurnedBefore {
+                
+                if cardsTurnedUp[0].getCardWasTurnedUpBefore() || cardsTurnedUp[1].getCardWasTurnedUpBefore() {
                     computerPlayer.removePointsForCardNotMatched(points: 1)
                 }
             }
             else {
-                if cardsTurnedUp[0].cardWasTurnedBefore || cardsTurnedUp[1].cardWasTurnedBefore {
+                
+                if cardsTurnedUp[0].getCardWasTurnedUpBefore() || cardsTurnedUp[1].getCardWasTurnedUpBefore() {
+                    
                     previousHumanPlayerNumberOfPoints = humanPlayerPoints
                     humanPlayerPoints = humanPlayerPoints - 1 < 0 ? 0 : humanPlayerPoints - 1
                 }
@@ -243,11 +251,11 @@ class MemoryGame: NSObject {
             cardsTurnedUp[0].characterNode.turnCardDownAnimation()
             cardsTurnedUp[1].characterNode.turnCardDownAnimation()
             
-            cardsTurnedUp[0].cardIsUp = false
-            cardsTurnedUp[1].cardIsUp = false
+            cardsTurnedUp[0].turnCard()
+            cardsTurnedUp[1].turnCard()
             
-            cardsTurnedUp[0].cardWasTurnedBefore = true
-            cardsTurnedUp[1].cardWasTurnedBefore = true
+            cardsTurnedUp[0].setCardWasTurnedBefore()
+            cardsTurnedUp[1].setCardWasTurnedBefore()
             
             cardsTurnedUp.removeAll()
             
@@ -258,7 +266,7 @@ class MemoryGame: NSObject {
     func checkGameHasEnded() -> Bool {
         
         for card in gameCards {
-            if !card.cardFoundMatch {
+            if !card.cardWasMatched() {
                 return false
             }
         }
@@ -284,7 +292,7 @@ class MemoryGame: NSObject {
                 var indexForCardsNotMatched = [Int]()
                 
                 for index in (0..<self.gameCards.count) {
-                    if !self.gameCards[index].cardFoundMatch {
+                    if !self.gameCards[index].cardWasMatched() {
                         indexForCardsNotMatched.append(index)
                     }
                 }
@@ -327,7 +335,8 @@ class MemoryGame: NSObject {
         }
         
         cardsTurnedUp.append(card)
-        card.cardIsUp = true
+        
+        card.turnCard()
         card.characterNode.turnCardUpAnimation()
         
         if cardsTurnedUp.count == 2 {

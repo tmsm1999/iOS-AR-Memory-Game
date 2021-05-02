@@ -110,7 +110,24 @@ class StartView: UIViewController {
     }
     
     @objc func startARExperience(_ sender: UIButton) {
-        let memoryGameARViewController = ARMemoryGameUI()
+        
+        var memoryGameARViewController: ARMemoryGameUI
+        
+        switch sender.currentTitle {
+        case "Easy":
+            memoryGameARViewController = ARMemoryGameUI(gamedifficulty: .easy)
+            break
+        case "Medium":
+            memoryGameARViewController = ARMemoryGameUI(gamedifficulty: .medium)
+            break
+        case "Hard":
+            memoryGameARViewController = ARMemoryGameUI(gamedifficulty: .hard)
+            break
+        default:
+            memoryGameARViewController = ARMemoryGameUI(gamedifficulty: .easy)
+            break
+        }
+        
         present(memoryGameARViewController, animated: true, completion: nil)
     }
     

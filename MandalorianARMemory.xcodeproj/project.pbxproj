@@ -19,6 +19,8 @@
 		CF8FFE98261F1A640066A48E /* characterInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = CF8FFE97261F1A640066A48E /* characterInfo.json */; };
 		CFE7C5642638BBFC005F3A6E /* GridMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C5632638BBFC005F3A6E /* GridMaterial.swift */; };
 		CFE7C566263EB431005F3A6E /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C565263EB431005F3A6E /* StartView.swift */; };
+		CFE7C569263EE9C5005F3A6E /* CoachingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */; };
+		CFE7C56B263EEA09005F3A6E /* ARNodeProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		CF8FFE97261F1A640066A48E /* characterInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characterInfo.json; sourceTree = "<group>"; };
 		CFE7C5632638BBFC005F3A6E /* GridMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMaterial.swift; sourceTree = "<group>"; };
 		CFE7C565263EB431005F3A6E /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingOverlay.swift; sourceTree = "<group>"; };
+		CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARNodeProperties.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,15 +72,15 @@
 		CF8FFE72261F0B9F0066A48E /* MandalorianARMemory */ = {
 			isa = PBXGroup;
 			children = (
+				CFE7C56C263EEA56005F3A6E /* Views */,
+				CFE7C567263EE9AA005F3A6E /* Extensions */,
 				CF8FFE8E261F0CCF0066A48E /* MemoryGame */,
 				CF8FFE73261F0B9F0066A48E /* AppDelegate.swift */,
 				CF8FFE75261F0B9F0066A48E /* SceneDelegate.swift */,
 				CF8FFE97261F1A640066A48E /* characterInfo.json */,
-				CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */,
 				CF8FFE7C261F0BA00066A48E /* Assets.xcassets */,
 				CF8FFE7E261F0BA00066A48E /* LaunchScreen.storyboard */,
 				CF8FFE81261F0BA00066A48E /* Info.plist */,
-				CFE7C565263EB431005F3A6E /* StartView.swift */,
 			);
 			path = MandalorianARMemory;
 			sourceTree = "<group>";
@@ -91,6 +95,24 @@
 				CFE7C5632638BBFC005F3A6E /* GridMaterial.swift */,
 			);
 			path = MemoryGame;
+			sourceTree = "<group>";
+		};
+		CFE7C567263EE9AA005F3A6E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */,
+				CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		CFE7C56C263EEA56005F3A6E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CFE7C565263EB431005F3A6E /* StartView.swift */,
+				CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,9 +185,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE7C569263EE9C5005F3A6E /* CoachingOverlay.swift in Sources */,
 				CFE7C566263EB431005F3A6E /* StartView.swift in Sources */,
 				CF8FFE78261F0B9F0066A48E /* ARMemoryGameUI.swift in Sources */,
 				CF8FFE90261F0D5D0066A48E /* Card.swift in Sources */,
+				CFE7C56B263EEA09005F3A6E /* ARNodeProperties.swift in Sources */,
 				CFE7C5642638BBFC005F3A6E /* GridMaterial.swift in Sources */,
 				CF8FFE74261F0B9F0066A48E /* AppDelegate.swift in Sources */,
 				CF8FFE89261F0CBF0066A48E /* MemoryGame.swift in Sources */,

@@ -13,9 +13,9 @@ class Card {
     var characterName: String
     var characterSummary: String
     var characterNode: SCNNode
-    var cardIsUp: Bool
-    var cardFoundMatch: Bool
-    var cardWasTurnedBefore: Bool
+    private var cardIsUp: Bool
+    private var cardFoundMatch: Bool
+    private var cardWasTurnedBefore: Bool
     
     init(characterName: String, characterSummary: String, pairNumber: Int, backCard: String) {
         
@@ -45,6 +45,26 @@ class Card {
     
     func turnCard() {
         cardIsUp = !cardIsUp
+    }
+    
+    func matchCard() {
+        cardFoundMatch = true
+    }
+    
+    func cardWasMatched() -> Bool {
+        return cardFoundMatch
+    }
+    
+    func setCardWasTurnedBefore() {
+        cardWasTurnedBefore = true
+    }
+    
+    func getCardWasTurnedUpBefore() -> Bool {
+        return cardWasTurnedBefore
+    }
+    
+    func isCardTurnedUp() -> Bool {
+        return cardIsUp
     }
 }
 

@@ -10,24 +10,18 @@ import ARKit
 
 class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
 
-    var sceneView: ARSCNView!
+    var sceneView = ARSCNView()
     var planeAnchors = [(ARAnchor, ARPlaneAnchor)]()
-    
     let configuration = ARWorldTrackingConfiguration()
 
-    var memoryGame: MemoryGame!
+    var memoryGame: MemoryGame
     var observers = [NSKeyValueObservation]()
     
     let turnLabelWidth: CGFloat = 250
     let turnLabelHeight: CGFloat = 40
     
-    let mandalorianLogoImage = UIImageView()
-    let backButton = UIButton(type: .system)
-    let playButton = UIButton(type: .system)
-    let addBoardButton = UIButton(type: .system)
     let endGameButton = UIButton(type: .system)
-    let difficultyButtonsRow = UIView()
-    
+    let addBoardButton = UIButton(type: .system)
     let userInstructionsView = UIView()
     let userInstructionLabel = UILabel()
     
@@ -40,7 +34,15 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
     
     let coachingOverlay = ARCoachingOverlayView()
     
-    var quitInTheMiddle: Bool = false
+    init(gamedifficulty: GameDifficulty) {
+        
+        memoryGame = MemoryGame(initialNumberOfCards: 5, gameDifficulty: gamedifficulty)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,67 +52,10 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         self.sceneView = ARSCNView()
         self.sceneView.delegate = self
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
-        self.sceneView.isHidden = true
         self.view.addSubview(sceneView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(turnCardUp))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
-        
-        mandalorianLogoImage.translatesAutoresizingMaskIntoConstraints = false
-        mandalorianLogoImage.contentMode = .scaleAspectFit
-        mandalorianLogoImage.image = UIImage(named: "mandalorian_logo")
-        self.view.addSubview(mandalorianLogoImage)
-        
-        playButton.translatesAutoresizingMaskIntoConstraints = false
-        playButton.setTitle("Play", for: .normal)
-        playButton.setTitleColor(.white, for: .normal)
-        playButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 23)
-        playButton.backgroundColor = UIColor.systemBlue
-        playButton.layer.borderColor = UIColor.white.cgColor
-        playButton.layer.borderWidth = 3.5
-        playButton.layer.cornerRadius = 30
-        playButton.addTarget(self, action: #selector(playButtonWasPressed), for: .touchUpInside)
-        self.view.addSubview(playButton)
-        
-        let easyButton = UIButton(type: .system)
-        easyButton.setTitle("Easy", for: .normal)
-        easyButton.setTitleColor(.white, for: .normal)
-        easyButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        easyButton.backgroundColor = UIColor.systemGreen
-        easyButton.layer.borderColor = UIColor.white.cgColor
-        easyButton.layer.borderWidth = 2.5
-        easyButton.layer.cornerRadius = 25
-        easyButton.addTarget(self, action: #selector(startARExperience), for: .touchUpInside)
-        easyButton.frame = CGRect(x: 0, y: 0, width: 190, height: 50)
-        difficultyButtonsRow.addSubview(easyButton)
-        
-        let mediumButton = UIButton(type: .system)
-        mediumButton.setTitle("Medium", for: .normal)
-        mediumButton.setTitleColor(.white, for: .normal)
-        mediumButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        mediumButton.backgroundColor = UIColor.systemYellow
-        mediumButton.layer.borderColor = UIColor.white.cgColor
-        mediumButton.layer.borderWidth = 2.5
-        mediumButton.layer.cornerRadius = 25
-        mediumButton.addTarget(self, action: #selector(startARExperience), for: .touchUpInside)
-        mediumButton.frame = CGRect(x: 230, y: 0, width: 190, height: 50)
-        difficultyButtonsRow.addSubview(mediumButton)
-        
-        let hardButton = UIButton(type: .system)
-        hardButton.setTitle("Hard", for: .normal)
-        hardButton.setTitleColor(.white, for: .normal)
-        hardButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
-        hardButton.backgroundColor = UIColor.systemRed
-        hardButton.layer.borderColor = UIColor.white.cgColor
-        hardButton.layer.borderWidth = 2.5
-        hardButton.layer.cornerRadius = 25
-        hardButton.addTarget(self, action: #selector(startARExperience), for: .touchUpInside)
-        hardButton.frame = CGRect(x: 460, y: 0, width: 190, height: 50)
-        difficultyButtonsRow.addSubview(hardButton)
-        difficultyButtonsRow.isHidden = true
-        
-        difficultyButtonsRow.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(difficultyButtonsRow)
         
         let placeBoardImage = UIImage(systemName: "plus.viewfinder")
         addBoardButton.translatesAutoresizingMaskIntoConstraints = false
@@ -119,18 +64,11 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         addBoardButton.isHidden = true
         self.view.addSubview(addBoardButton)
         
-        let backButtonImage = UIImage(systemName: "arrow.backward.circle.fill")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        backButton.setBackgroundImage(backButtonImage, for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
-        backButton.isHidden = true
-        self.view.addSubview(backButton)
-        
         let endGameImage = UIImage(systemName: "xmark.circle.fill")?.withTintColor(UIColor.red, renderingMode: .alwaysOriginal)
         endGameButton.translatesAutoresizingMaskIntoConstraints = false
         endGameButton.setBackgroundImage(endGameImage, for: .normal)
         endGameButton.addTarget(self, action: #selector(giveUpGame), for: .touchUpInside)
-        endGameButton.isHidden = true
+        endGameButton.isHidden = false
         self.view.addSubview(endGameButton)
         
         userInstructionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -181,30 +119,10 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         
         NSLayoutConstraint.activate([
             
-            mandalorianLogoImage.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 20),
-            mandalorianLogoImage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            mandalorianLogoImage.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.35),
-            mandalorianLogoImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.5),
-            
-            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
-            backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 30),
-            backButton.widthAnchor.constraint(equalToConstant: 45),
-            backButton.heightAnchor.constraint(equalToConstant: 45),
-            
             endGameButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
             endGameButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 30),
             endGameButton.widthAnchor.constraint(equalToConstant: 45),
             endGameButton.heightAnchor.constraint(equalToConstant: 45),
-            
-            playButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            playButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -65),
-            playButton.heightAnchor.constraint(equalToConstant: 60),
-            playButton.widthAnchor.constraint(equalToConstant: 280),
-            
-            difficultyButtonsRow.widthAnchor.constraint(equalToConstant: 190 * 3 + 40 * 2),
-            difficultyButtonsRow.heightAnchor.constraint(equalToConstant: 45),
-            difficultyButtonsRow.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            difficultyButtonsRow.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -65),
             
             userInstructionsView.heightAnchor.constraint(equalToConstant: 60),
             userInstructionsView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.55),
@@ -241,55 +159,30 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             self.sceneView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             self.sceneView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
         ])
-    }
-    
-    @objc func playButtonWasPressed(_ sender: UIButton) {
         
-        playButton.isHidden = true
-        difficultyButtonsRow.isHidden = false
-        backButton.isHidden = false
-    }
-
-    @objc func backButtonWasPressed(_ sender: UIButton) {
-        
-        playButton.isHidden = false
-        difficultyButtonsRow.isHidden = true
-        backButton.isHidden = true
+        startARExperience()
     }
     
     @objc func giveUpGame() {
         
-        if !memoryGame.gameHasEnded {
-            quitInTheMiddle = true
-        }
-        
         self.view.layer.removeAllAnimations()
         
+        self.sceneView.session.pause()
         self.sceneView.scene.rootNode.enumerateChildNodes { node, _ in
             node.removeFromParentNode()
         }
         
-        mandalorianLogoImage.isHidden = false
-        playButton.isHidden = false
-        
-        endGameButton.isHidden = true
-        addBoardButton.isHidden = true
-        userInstructionsView.isHidden = true
-        pointsView.isHidden = true
-        
-        self.sceneView.session.pause()
-        self.sceneView.isHidden = true
-        
-        memoryGame.gameHasEnded = true
+        present(StartView(), animated: true, completion: nil)
     }
     
     @objc func addBoardButtonWasPressed(_ sender: UIButton) {
         
-        print("Button was pressed!")
-        
         if planeAnchors.count == 1 {
             
             let planePosition = planeAnchors[0].1.transform.columns.3 //Plane Position in the world
+            guard let cameraAngle = self.sceneView.session.currentFrame?.camera.eulerAngles else {
+                return
+            }
                 
             self.sceneView.session.remove(anchor: planeAnchors[0].0)
             planeAnchors.removeAll()
@@ -300,6 +193,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             //The board can be placed on this surface.
             let gameBoard = memoryGame.getGameBoard()
             gameBoard.position = SCNVector3(planePosition.x, planePosition.y, planePosition.z - 0.05)
+            gameBoard.eulerAngles.y = cameraAngle.y
 
             self.sceneView.scene.rootNode.addChildNode(gameBoard)
             addBoardButton.isHidden = true
@@ -317,28 +211,26 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
     
     @objc func turnCardUp(sender: UITapGestureRecognizer) {
         
-        if memoryGame != nil, !memoryGame.isComputerTurn {
+        if !memoryGame.isComputerTurn {
             
             let sceneViewTappedOn = sender.view as! SCNView
             let touchCoordinates = sender.location(in: sceneViewTappedOn)
             
             let hitTest = sceneViewTappedOn.hitTest(touchCoordinates)
             if hitTest.isEmpty {
-                print("Did not touch any card.")
             }
             else {
                 
                 guard let hitTestResultNode = hitTest.first?.node, hitTestResultNode.name != "board", memoryGame.numberOfCardsTurnedUp() < 2 else {
-                    print("Did not touch a card.")
                     return
                 }
                 
-                print("Touched a card!")
+                print("Card was touched!")
                     
                 let cards = memoryGame.getGameCards()
                 for card in cards {
                     
-                    if hitTestResultNode.name == card.characterName, !card.cardFoundMatch, !card.cardIsUp {
+                    if hitTestResultNode.name == card.characterName, !card.cardWasMatched(), !card.isCardTurnedUp() {
                         memoryGame.turnUpCard(card: card)
                     }
                 }
@@ -346,41 +238,17 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         }
     }
     
-    @objc func startARExperience(_ sender: UIButton) {
-        
-        print("Aqui!")
-        
-        switch sender.currentTitle {
-        case "Easy":
-            memoryGame = MemoryGame(initialNumberOfCards: 5, gameDifficulty: GameDifficulty.easy)
-            break
-        case "Medium":
-            memoryGame = MemoryGame(initialNumberOfCards: 5, gameDifficulty: GameDifficulty.medium)
-            break
-        case "Hard":
-            memoryGame = MemoryGame(initialNumberOfCards: 5, gameDifficulty: GameDifficulty.hard)
-            break
-        default:
-            break
-        }
-        
-        self.sceneView.isHidden = false
+    func startARExperience() {
         
         configuration.planeDetection = .horizontal
         self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         
         setUpCoachingExperience()
-        
-        mandalorianLogoImage.isHidden = true
-        difficultyButtonsRow.isHidden = true
-        backButton.isHidden = true
-        
-        endGameButton.isHidden = false
     }
     
     func startMemoryGame() {
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             
             self.observeMemoryGame()
             
@@ -403,7 +271,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             
             memoryGame.observe(\.gameHasEnded, options: [.initial]) { (memoryGame, change) in
                 
-                if memoryGame.gameHasEnded, !self.quitInTheMiddle {
+                if memoryGame.gameHasEnded {
                     
                     self.userInstructionLabel.text = "The game is finished..."
                     
@@ -413,8 +281,6 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
                         self.showGameFinishedAlert(humanPoints: self.memoryGame.getHumanPlayerPoints(), computerPoints: self.memoryGame.getComputerPlayerPoints())
                     }
                 }
-                
-                self.quitInTheMiddle = false
             },
             
             memoryGame.observe(\.humanPlayerPoints, options: [.initial]) { (memoryGame, change) in
@@ -473,10 +339,6 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
     
     func showGameFinishedAlert(humanPoints: Int, computerPoints: Int) {
         
-        guard let _ = memoryGame else {
-            return
-        }
-        
         var title = ""
         var message = ""
         
@@ -504,9 +366,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
     func makePlaneGrid(anchor: ARPlaneAnchor) -> SCNNode {
         
         let surfaceWidth: CGFloat = CGFloat(anchor.extent.x)
-        //print(surfaceWidth)
         let surfaceHeight: CGFloat = CGFloat(anchor.extent.z)
-        //print(surfaceHeight)
         
         let gridPlane = SCNPlane(width: surfaceWidth, height: surfaceHeight)
         gridPlane.materials = [GridMaterial()]
@@ -530,7 +390,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
                     return
                 }
                 
-                print(imageName)
+                print("Card set: \(imageName)")
                 
                 self.memoryGame.setNewCardSet(cardSet: imageName)
                 
@@ -575,6 +435,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             planeAnchors.append((anchor, planeAnchor))
             
             DispatchQueue.main.async {
+                
                 let planeWidth = planeAnchor.extent.x
                 let planeheight = planeAnchor.extent.z
                 
@@ -626,73 +487,5 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
                 childNode.removeFromParentNode()
             }
         }
-    }
-}
-
-extension ARMemoryGameUI: ARCoachingOverlayViewDelegate {
-    
-    func setUpCoachingExperience() {
-        
-        coachingOverlay.session = sceneView.session
-        coachingOverlay.delegate = self
-        coachingOverlay.translatesAutoresizingMaskIntoConstraints = false
-        sceneView.addSubview(coachingOverlay)
-        
-        NSLayoutConstraint.activate([
-            
-            coachingOverlay.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            coachingOverlay.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            coachingOverlay.widthAnchor.constraint(equalTo: view.widthAnchor),
-            coachingOverlay.heightAnchor.constraint(equalTo: view.heightAnchor)
-        ])
-        
-        coachingOverlay.activatesAutomatically = true
-        coachingOverlay.goal = .horizontalPlane
-    }
-    
-    func coachingOverlayViewWillActivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        self.userInstructionsView.layer.borderColor = UIColor.white.cgColor
-    }
-    
-    
-    func coachingOverlayViewDidDeactivate(_ coachingOverlayView: ARCoachingOverlayView) {
-        
-        coachingOverlay.activatesAutomatically = false
-        
-        userInstructionsView.isHidden = false
-        userInstructionLabel.text = "Place thematic image to load card set..."
-        
-        guard let trackingImages = ARReferenceImage.referenceImages(inGroupNamed: "Initial Card Images", bundle: nil) else {
-            fatalError("Could not get tracking images.")
-        }
-        
-        configuration.detectionImages = trackingImages
-        configuration.planeDetection = .horizontal
-        self.sceneView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        
-        sceneView.session.run(configuration)
-
-        print("Start image tracking!")
-    }
-}
-
-extension SCNNode {
-    
-    var width: Float {
-        return (boundingBox.max.x - boundingBox.min.x) * scale.x
-    }
-    
-    var height: Float {
-        return (boundingBox.max.y - boundingBox.min.y) * scale.y
-    }
-    
-    func pivotOnTopLeft() {
-        let (min, max) = boundingBox
-        pivot = SCNMatrix4MakeTranslation(min.x, (max.y - min.y) + min.y, 0)
-    }
-    
-    func pivotOnTopCenter() {
-        let (min, max) = boundingBox
-        pivot = SCNMatrix4MakeTranslation((max.x - min.x) / 2 + min.x, (max.y - min.y) + min.y, 0)
     }
 }
