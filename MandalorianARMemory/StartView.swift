@@ -11,6 +11,8 @@ import UIKit
 class StartView: UIViewController {
     
     let playButton = UIButton(type: .system)
+    let backButton = UIButton(type: .system)
+    
     let difficultyButtonsRow = UIView()
     let appTitle = UILabel()
     
@@ -18,8 +20,12 @@ class StartView: UIViewController {
         
         self.view.backgroundColor = UIColor.black
         
-        playButton.translatesAutoresizingMaskIntoConstraints = false
-        difficultyButtonsRow.translatesAutoresizingMaskIntoConstraints = false
+        appTitle.translatesAutoresizingMaskIntoConstraints = false
+        appTitle.font = UIFont.boldSystemFont(ofSize: 70)
+        appTitle.text = "AR Memory"
+        appTitle.textColor = UIColor.white
+        appTitle.textAlignment = .center
+        self.view.addSubview(appTitle)
         
         let easyButton = UIButton(type: .system)
         easyButton.setTitle("Easy", for: .normal)
@@ -57,12 +63,27 @@ class StartView: UIViewController {
         hardButton.frame = CGRect(x: 460, y: 0, width: 190, height: 50)
         difficultyButtonsRow.addSubview(hardButton)
         
+        difficultyButtonsRow.translatesAutoresizingMaskIntoConstraints = false
+        difficultyButtonsRow.isHidden = true
         self.view.addSubview(difficultyButtonsRow)
         
-        appTitle.translatesAutoresizingMaskIntoConstraints = false
-        appTitle.font = UIFont.boldSystemFont(ofSize: 30)
-        appTitle.text = "AR Memory"
-        appTitle.textColor = UIColor.white
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.setTitle("Play", for: .normal)
+        playButton.setTitleColor(.white, for: .normal)
+        playButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 23)
+        playButton.backgroundColor = UIColor.systemBlue
+        playButton.layer.borderColor = UIColor.white.cgColor
+        playButton.layer.borderWidth = 3.5
+        playButton.layer.cornerRadius = 30
+        playButton.addTarget(self, action: #selector(playButtonWasPressed), for: .touchUpInside)
+        self.view.addSubview(playButton)
+        
+        let backButtonImage = UIImage(systemName: "arrow.backward.circle.fill")?.withTintColor(UIColor.white, renderingMode: .alwaysOriginal)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        backButton.setBackgroundImage(backButtonImage, for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonWasPressed), for: .touchUpInside)
+        backButton.isHidden = true
+        self.view.addSubview(backButton)
         
         NSLayoutConstraint.activate([
             
@@ -80,13 +101,29 @@ class StartView: UIViewController {
             playButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -65),
             playButton.heightAnchor.constraint(equalToConstant: 60),
             playButton.widthAnchor.constraint(equalToConstant: 280),
+            
+            backButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
+            backButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 30),
+            backButton.widthAnchor.constraint(equalToConstant: 45),
+            backButton.heightAnchor.constraint(equalToConstant: 45),
         ])
     }
     
     @objc func startARExperience(_ sender: UIButton) {
-        
         let memoryGameARViewController = ARMemoryGameUI()
         present(memoryGameARViewController, animated: true, completion: nil)
+    }
+    
+    @objc func playButtonWasPressed(_ sender: UIButton) {
+        playButton.isHidden = true
+        backButton.isHidden = false
+        difficultyButtonsRow.isHidden = false
+    }
+    
+    @objc func backButtonWasPressed(_ sender: UIButton) {
+        playButton.isHidden = false
+        backButton.isHidden = true
+        difficultyButtonsRow.isHidden = true
     }
     
 }

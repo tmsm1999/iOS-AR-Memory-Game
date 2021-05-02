@@ -11,7 +11,6 @@
 		CF8FFE74261F0B9F0066A48E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE73261F0B9F0066A48E /* AppDelegate.swift */; };
 		CF8FFE76261F0B9F0066A48E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE75261F0B9F0066A48E /* SceneDelegate.swift */; };
 		CF8FFE78261F0B9F0066A48E /* ARMemoryGameUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */; };
-		CF8FFE7B261F0B9F0066A48E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF8FFE79261F0B9F0066A48E /* Main.storyboard */; };
 		CF8FFE7D261F0BA00066A48E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF8FFE7C261F0BA00066A48E /* Assets.xcassets */; };
 		CF8FFE80261F0BA00066A48E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF8FFE7E261F0BA00066A48E /* LaunchScreen.storyboard */; };
 		CF8FFE89261F0CBF0066A48E /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE88261F0CBF0066A48E /* MemoryGame.swift */; };
@@ -28,7 +27,6 @@
 		CF8FFE73261F0B9F0066A48E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF8FFE75261F0B9F0066A48E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMemoryGameUI.swift; sourceTree = "<group>"; };
-		CF8FFE7A261F0B9F0066A48E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CF8FFE7C261F0BA00066A48E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF8FFE7F261F0BA00066A48E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF8FFE81261F0BA00066A48E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,7 +73,6 @@
 				CF8FFE75261F0B9F0066A48E /* SceneDelegate.swift */,
 				CF8FFE97261F1A640066A48E /* characterInfo.json */,
 				CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */,
-				CF8FFE79261F0B9F0066A48E /* Main.storyboard */,
 				CF8FFE7C261F0BA00066A48E /* Assets.xcassets */,
 				CF8FFE7E261F0BA00066A48E /* LaunchScreen.storyboard */,
 				CF8FFE81261F0BA00066A48E /* Info.plist */,
@@ -155,7 +152,6 @@
 			files = (
 				CF8FFE80261F0BA00066A48E /* LaunchScreen.storyboard in Resources */,
 				CF8FFE7D261F0BA00066A48E /* Assets.xcassets in Resources */,
-				CF8FFE7B261F0B9F0066A48E /* Main.storyboard in Resources */,
 				CF8FFE98261F1A640066A48E /* characterInfo.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,14 +178,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		CF8FFE79261F0B9F0066A48E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CF8FFE7A261F0B9F0066A48E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CF8FFE7E261F0BA00066A48E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -10,7 +10,7 @@ import ARKit
 
 class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
 
-    @IBOutlet weak var sceneView: ARSCNView!
+    var sceneView: ARSCNView!
     var planeAnchors = [(ARAnchor, ARPlaneAnchor)]()
     
     let configuration = ARWorldTrackingConfiguration()
@@ -47,9 +47,11 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         
         self.view.backgroundColor = UIColor.black
         
+        self.sceneView = ARSCNView()
         self.sceneView.delegate = self
         self.sceneView.translatesAutoresizingMaskIntoConstraints = false
         self.sceneView.isHidden = true
+        self.view.addSubview(sceneView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(turnCardUp))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
