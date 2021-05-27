@@ -17,15 +17,19 @@
 		CF8FFE90261F0D5D0066A48E /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE8F261F0D5D0066A48E /* Card.swift */; };
 		CF8FFE95261F13DE0066A48E /* GameDifficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8FFE94261F13DE0066A48E /* GameDifficulty.swift */; };
 		CF8FFE98261F1A640066A48E /* characterInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = CF8FFE97261F1A640066A48E /* characterInfo.json */; };
+		CFE4E4AA2659580A00DB0C6F /* ParticleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE4E4A92659580A00DB0C6F /* ParticleScene.swift */; };
+		CFE4E4AD2659586F00DB0C6F /* FireParticles.sks in Resources */ = {isa = PBXBuildFile; fileRef = CFE4E4AB2659586F00DB0C6F /* FireParticles.sks */; };
+		CFE4E4AE2659586F00DB0C6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CFE4E4AC2659586F00DB0C6F /* Assets.xcassets */; };
 		CFE7C5642638BBFC005F3A6E /* GridMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C5632638BBFC005F3A6E /* GridMaterial.swift */; };
 		CFE7C566263EB431005F3A6E /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C565263EB431005F3A6E /* StartView.swift */; };
 		CFE7C569263EE9C5005F3A6E /* CoachingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */; };
 		CFE7C56B263EEA09005F3A6E /* ARNodeProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */; };
+		CFE7C56E26429252005F3A6E /* BallonAnimationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFE7C56D26429252005F3A6E /* BallonAnimationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF8B176E2635AB3E00F63850 /* ComputerPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComputerPlayer.swift; sourceTree = "<group>"; };
-		CF8FFE70261F0B9F0066A48E /* MandalorianARMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MandalorianARMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF8FFE70261F0B9F0066A48E /* ARMemory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARMemory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF8FFE73261F0B9F0066A48E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF8FFE75261F0B9F0066A48E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CF8FFE77261F0B9F0066A48E /* ARMemoryGameUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARMemoryGameUI.swift; sourceTree = "<group>"; };
@@ -36,10 +40,14 @@
 		CF8FFE8F261F0D5D0066A48E /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CF8FFE94261F13DE0066A48E /* GameDifficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDifficulty.swift; sourceTree = "<group>"; };
 		CF8FFE97261F1A640066A48E /* characterInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = characterInfo.json; sourceTree = "<group>"; };
+		CFE4E4A92659580A00DB0C6F /* ParticleScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleScene.swift; sourceTree = "<group>"; };
+		CFE4E4AB2659586F00DB0C6F /* FireParticles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireParticles.sks; sourceTree = "<group>"; };
+		CFE4E4AC2659586F00DB0C6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CFE7C5632638BBFC005F3A6E /* GridMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridMaterial.swift; sourceTree = "<group>"; };
 		CFE7C565263EB431005F3A6E /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingOverlay.swift; sourceTree = "<group>"; };
 		CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARNodeProperties.swift; sourceTree = "<group>"; };
+		CFE7C56D26429252005F3A6E /* BallonAnimationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BallonAnimationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,7 +72,7 @@
 		CF8FFE71261F0B9F0066A48E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CF8FFE70261F0B9F0066A48E /* MandalorianARMemory.app */,
+				CF8FFE70261F0B9F0066A48E /* ARMemory.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +80,7 @@
 		CF8FFE72261F0B9F0066A48E /* MandalorianARMemory */ = {
 			isa = PBXGroup;
 			children = (
+				CFE4E4A8265957B900DB0C6F /* ParticleEmitter */,
 				CFE7C56C263EEA56005F3A6E /* Views */,
 				CFE7C567263EE9AA005F3A6E /* Extensions */,
 				CF8FFE8E261F0CCF0066A48E /* MemoryGame */,
@@ -97,11 +106,22 @@
 			path = MemoryGame;
 			sourceTree = "<group>";
 		};
+		CFE4E4A8265957B900DB0C6F /* ParticleEmitter */ = {
+			isa = PBXGroup;
+			children = (
+				CFE4E4A92659580A00DB0C6F /* ParticleScene.swift */,
+				CFE4E4AB2659586F00DB0C6F /* FireParticles.sks */,
+				CFE4E4AC2659586F00DB0C6F /* Assets.xcassets */,
+			);
+			path = ParticleEmitter;
+			sourceTree = "<group>";
+		};
 		CFE7C567263EE9AA005F3A6E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CFE7C568263EE9C5005F3A6E /* CoachingOverlay.swift */,
 				CFE7C56A263EEA09005F3A6E /* ARNodeProperties.swift */,
+				CFE7C56D26429252005F3A6E /* BallonAnimationDelegate.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -118,9 +138,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CF8FFE6F261F0B9F0066A48E /* MandalorianARMemory */ = {
+		CF8FFE6F261F0B9F0066A48E /* ARMemory */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CF8FFE84261F0BA00066A48E /* Build configuration list for PBXNativeTarget "MandalorianARMemory" */;
+			buildConfigurationList = CF8FFE84261F0BA00066A48E /* Build configuration list for PBXNativeTarget "ARMemory" */;
 			buildPhases = (
 				CF8FFE6C261F0B9F0066A48E /* Sources */,
 				CF8FFE6D261F0B9F0066A48E /* Frameworks */,
@@ -130,9 +150,9 @@
 			);
 			dependencies = (
 			);
-			name = MandalorianARMemory;
+			name = ARMemory;
 			productName = MandalorianARMemory;
-			productReference = CF8FFE70261F0B9F0066A48E /* MandalorianARMemory.app */;
+			productReference = CF8FFE70261F0B9F0066A48E /* ARMemory.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CF8FFE6B261F0B9F0066A48E /* Build configuration list for PBXProject "MandalorianARMemory" */;
+			buildConfigurationList = CF8FFE6B261F0B9F0066A48E /* Build configuration list for PBXProject "ARMemory" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -162,7 +182,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CF8FFE6F261F0B9F0066A48E /* MandalorianARMemory */,
+				CF8FFE6F261F0B9F0066A48E /* ARMemory */,
 			);
 		};
 /* End PBXProject section */
@@ -173,8 +193,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF8FFE80261F0BA00066A48E /* LaunchScreen.storyboard in Resources */,
+				CFE4E4AD2659586F00DB0C6F /* FireParticles.sks in Resources */,
 				CF8FFE7D261F0BA00066A48E /* Assets.xcassets in Resources */,
 				CF8FFE98261F1A640066A48E /* characterInfo.json in Resources */,
+				CFE4E4AE2659586F00DB0C6F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,11 +213,13 @@
 				CF8FFE90261F0D5D0066A48E /* Card.swift in Sources */,
 				CFE7C56B263EEA09005F3A6E /* ARNodeProperties.swift in Sources */,
 				CFE7C5642638BBFC005F3A6E /* GridMaterial.swift in Sources */,
+				CFE4E4AA2659580A00DB0C6F /* ParticleScene.swift in Sources */,
 				CF8FFE74261F0B9F0066A48E /* AppDelegate.swift in Sources */,
 				CF8FFE89261F0CBF0066A48E /* MemoryGame.swift in Sources */,
 				CF8B176F2635AB3E00F63850 /* ComputerPlayer.swift in Sources */,
 				CF8FFE95261F13DE0066A48E /* GameDifficulty.swift in Sources */,
 				CF8FFE76261F0B9F0066A48E /* SceneDelegate.swift in Sources */,
+				CFE7C56E26429252005F3A6E /* BallonAnimationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +394,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CF8FFE6B261F0B9F0066A48E /* Build configuration list for PBXProject "MandalorianARMemory" */ = {
+		CF8FFE6B261F0B9F0066A48E /* Build configuration list for PBXProject "ARMemory" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF8FFE82261F0BA00066A48E /* Debug */,
@@ -379,7 +403,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CF8FFE84261F0BA00066A48E /* Build configuration list for PBXNativeTarget "MandalorianARMemory" */ = {
+		CF8FFE84261F0BA00066A48E /* Build configuration list for PBXNativeTarget "ARMemory" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF8FFE85261F0BA00066A48E /* Debug */,

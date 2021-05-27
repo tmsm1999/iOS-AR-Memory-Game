@@ -63,4 +63,36 @@
         "characterName":"Tyrion Lannister_Game of Thrones",
         "characterSummary":"Lord Tyrion Lannister is the youngest child of Lord \nTywin Lannister and younger brother of Cersei \nand Jaime Lannister. Tyrion eventually becomes \nhand of the Queen to Daenerys Targeryen and helps \nlead the war against his sister Cersei Lannister."
     },
+    {
+        "characterName":"Albus Dumbledore_Harry Potter",
+        "characterSummary":"Albus Percival Wulfric Brian Dumbledore was the headmaster \nof the Hogwarts Wizarding School. As part of his backstory, it is \nrevealed that he was is the founder and leader of the Order of the \nPhoenix, an organisation dedicated to fighting Lord Voldemort, the \nmain antagonist of the series."
+    },
+    {
+        "characterName":"Draco Malfoy_Harry Potter",
+        "characterSummary":"Draco Malfoy was a pure-blood wizard and the only son of \nLucius and Narcissa Malfoy. The son of a Death Eater and \nenemy of Harry Potter, Draco was raised to strongly believe in the \nimportance of blood purity. He attended Hogwarts School \nof Witchcraft and Wizardry and was sorted into Slytherin House."
+    },
+    {
+        "characterName":"Harry Potter_Harry Potter",
+        "characterSummary":"Harry James Potter was one of the most famous wizards of \nmodern times. He was the only child and son of James and Lily \nPotter, both members of the original Order of the Phoenix. Harry's \nbirth was overshadowed by a prophecy, naming either himself or \nNeville Longbottom as the one with the power to vanquish Lord Voldemort."
+    },
+    {
+        "characterName":"Hermione Granger_Harry Potter",
+        "characterSummary":"Hermione Granger was an English Muggle-born witch. At the \nage of eleven, she was accepted into Hogwarts School of Witchcraft \nand Wizardry. Hermione was one of Harry Potter's best friends. \nShe possessed a brilliant academic mind and proved to be a gifted \nstudent in almost every subject that she studied."
+    },
+    {
+        "characterName":"Lord Voldemort_Harry Potter",
+        "characterSummary":"Tom Marvolo Riddle, later known as Lord Voldemort or the Dark \nLord, was a wizard considered to have been the most powerful and \ndangerous wizard of all time. He was amongst the greatest wizards \nto have ever lived, often considered to be the second most powerful \nwizard in history, his only superior being Albus Dumbledore."
+    },
+    {
+        "characterName":"Luna Lovegood_Harry Potter",
+        "characterSummary":"Luna Lovegood attended Hogwarts School and was friends with \nHarry Potter. She participated in the Battle of the Department of \nMysteries, the Battle of Hogwarts, and co-led the reconstituted \nDumbledore's Army when Hogwarts fell under the control of \nLord Voldemort with Severus Snape as headmaster."
+    },
+    {
+        "characterName":"Ron Weasley_Harry Potter",
+        "characterSummary":"Ron Weasely was a wizard who attended Hogwarts School of \nWitchcraft and Wizardry and was sorted into Gryffindor House. \nHe soon became close friends with fellow student Harry Potter and \nlater Hermione Granger, who he later married. Together, they made the \nGolden trio, and faced many challenges during their adolescence."
+    },
+    {
+        "characterName":"Severus Snape_Harry Potter",
+        "characterSummary":"Severus Snape was an English half-blood wizard serving as Potions \nMaster, Head of Slytherin House and Headmaster of the Hogwarts \nSchool of Witchcraft and Wizardry, as well as a member of the Order of \nthe Phoenix and a Death Eater. His double life played an extremely \nimportant role in both of the Wizarding Wars against Voldemort."
+    },
 ]

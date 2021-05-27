@@ -7,6 +7,7 @@
 
 import UIKit
 import ARKit
+import SpriteKit
 
 class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
 
@@ -31,6 +32,8 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
     let pointsView = UIView()
     let humanPointsLabel = UILabel()
     let computerPointsLabel = UILabel()
+    
+    let blackView = UIView()
     
     let coachingOverlay = ARCoachingOverlayView()
     
@@ -117,6 +120,12 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         spinnerText.isHidden = true
         self.view.addSubview(spinnerText)
         
+        blackView.translatesAutoresizingMaskIntoConstraints = false
+        blackView.backgroundColor = UIColor.black.withAlphaComponent(0.60)
+        blackView.alpha = 1
+        blackView.isHidden = true
+        self.view.addSubview(blackView)
+        
         NSLayoutConstraint.activate([
             
             endGameButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 35),
@@ -153,6 +162,11 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             
             spinnerText.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             spinnerText.topAnchor.constraint(equalTo: spinner.bottomAnchor, constant: 20),
+            
+            blackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            blackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            blackView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
+            blackView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
             
             self.sceneView.heightAnchor.constraint(equalTo: self.view.heightAnchor),
             self.sceneView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
@@ -206,6 +220,7 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
             userInstructionLabel.text = ""
             
             startMemoryGame()
+            //presentVictoryCelebrationView()
         }
     }
     
@@ -273,12 +288,24 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
                 
                 if memoryGame.gameHasEnded {
                     
+                    let humanPoints = self.memoryGame.getHumanPlayerPoints()
+                    let computerPoints = self.memoryGame.getComputerPlayerPoints()
+                    
                     self.userInstructionLabel.text = "The game is finished..."
                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        if humanPoints > computerPoints {
+                            self.presentVictoryCelebrationView()
+                        }
+                        else {
+                            self.presentDefeatParticleEmitter()
+                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
                         
                         memoryGame.removeCharacterInfo()
-                        self.showGameFinishedAlert(humanPoints: self.memoryGame.getHumanPlayerPoints(), computerPoints: self.memoryGame.getComputerPlayerPoints())
+                        self.showGameFinishedAlert(humanPoints: humanPoints, computerPoints: computerPoints)
                     }
                 }
             },
@@ -377,6 +404,91 @@ class ARMemoryGameUI: UIViewController, ARSCNViewDelegate {
         gridNode.eulerAngles.x = -.pi / 2
         
         return gridNode
+    }
+    
+    func presentDefeatParticleEmitter() {
+        
+        blackView.isHidden = false
+        
+        let blackViewAppearenceAnimation = CABasicAnimation(keyPath: "opacity")
+        blackViewAppearenceAnimation.fromValue = 0
+        blackViewAppearenceAnimation.toValue = 1
+        blackViewAppearenceAnimation.duration = 2
+        blackView.layer.add(blackViewAppearenceAnimation, forKey: "opacity")
+        
+        let skView = SKView()
+        self.blackView.addSubview(skView)
+        self.blackView.bringSubviewToFront(skView)
+        
+        skView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            skView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            skView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            skView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            skView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+        
+        let particleScene = ParticleScene(size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        particleScene.scaleMode = .aspectFill
+        particleScene.backgroundColor = .clear
+        
+        skView.presentScene(particleScene)
+    }
+    
+    func presentVictoryCelebrationView() {
+        
+        blackView.isHidden = false
+        
+        let blackViewAppearenceAnimation = CABasicAnimation(keyPath: "opacity")
+        blackViewAppearenceAnimation.fromValue = 0
+        blackViewAppearenceAnimation.toValue = 1
+        blackViewAppearenceAnimation.duration = 2
+        blackView.layer.add(blackViewAppearenceAnimation, forKey: "opacity")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            
+            for _ in 1 ... 50 {
+                
+                let objectView = UIView()
+                objectView.translatesAutoresizingMaskIntoConstraints = false
+                objectView.frame = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height + 100, width: 20, height: 100)
+                
+                let ballon = UILabel()
+                ballon.translatesAutoresizingMaskIntoConstraints = false
+                ballon.frame = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height + 100, width: 20, height: 100)
+                ballon.text = "🎈"
+                ballon.font = UIFont.systemFont(ofSize: 60)
+                objectView.addSubview(ballon)
+                
+                NSLayoutConstraint.activate([
+                    ballon.centerXAnchor.constraint(equalTo: objectView.centerXAnchor),
+                    ballon.centerYAnchor.constraint(equalTo: objectView.centerYAnchor)
+                ])
+                
+                self.blackView.addSubview(objectView)
+                self.blackView.bringSubviewToFront(objectView)
+                
+                let randomXOffset = Int.random(in: -Int(UIScreen.main.bounds.width / 1.5) + 100 ..< Int(UIScreen.main.bounds.width / 1.5) - 100)
+                
+                let path = UIBezierPath()
+                path.move(to: CGPoint(x: randomXOffset, y: Int(UIScreen.main.bounds.height + 100)))
+                path.addCurve(to: CGPoint(x: Int(UIScreen.main.bounds.width / 2) + randomXOffset, y: -300), controlPoint1: CGPoint(x: randomXOffset - 300, y: 600), controlPoint2: CGPoint(x: randomXOffset + 450, y: 300))
+                
+                let animation = CAKeyframeAnimation(keyPath: "position")
+                animation.path = path.cgPath
+                animation.repeatCount = 1
+                animation.duration = Double.random(in: 4.0 ..< 7.0)
+                
+                let delegate = BallonAnimationDelegate()
+                delegate.didFinishAnimation = {
+                    objectView.removeFromSuperview()
+                }
+                animation.delegate = delegate
+                
+                objectView.layer.add(animation, forKey: "animate position along path")
+            }
+        }
     }
     
     //Plane anchor encodes orientation and size of a surface
